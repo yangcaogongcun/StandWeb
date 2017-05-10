@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stand.spring.dao.TempdataMapper">
-  <resultMap id="BaseResultMap" type="com.stand.spring.model.Tempdata">
+  <resultMap id="BaseResultMap" type="com.stand.spring.model.TempdataDO">
     <id column="Data_Id" jdbcType="INTEGER" property="dataId" />
-    <result column="Data_Date" jdbcType="DATE" property="dataDate" />
-    <result column="Data_Time" jdbcType="TIME" property="dataTime" />
+    <result column="Data_Date" jdbcType="VARCHAR" property="dataDate" />
+    <result column="Data_Time" jdbcType="VARCHAR" property="dataTime" />
     <result column="Data1" jdbcType="DOUBLE" property="data1" />
+    <result column="Data2" jdbcType="DOUBLE" property="data2" />
+    <result column="Data3" jdbcType="DOUBLE" property="data3" />
+    <result column="Data4" jdbcType="DOUBLE" property="data4" />
+    <result column="Data5" jdbcType="DOUBLE" property="data5" />
     <result column="Hour0" jdbcType="DOUBLE" property="hour0" />
     <result column="Hour1" jdbcType="DOUBLE" property="hour1" />
     <result column="Hour2" jdbcType="DOUBLE" property="hour2" />
@@ -32,5 +36,12 @@
     <result column="Hour23" jdbcType="DOUBLE" property="hour23" />
     <result column="Hour24" jdbcType="DOUBLE" property="hour24" />
   </resultMap>
+
+  <select id="selectAllByTableName"  parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from ${table}
+  </select>
+  <select id="selectByTableNameAndDate"  parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from ${table}  where Data_Date=#{date}
+  </select>
 
 </mapper>

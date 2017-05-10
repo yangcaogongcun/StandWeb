@@ -45,17 +45,14 @@
 		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 	</bean>
 
-	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.stand.spring.Mapper" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-	</bean>
+
 
 	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.stand.spring.dao" />
 		<property name="properties">
@@ -104,7 +101,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="myRealm" class="com.stand.spring.security.MyRealm"/>
+	<!--<bean id="myRealm" class="com.stand.spring.security.MyRealm"/>-->
 	<!-- Shiro生命周期处理器 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 	<!-- 启用shrio授权注解拦截方式 -->
@@ -113,15 +110,53 @@
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
+	<!--定时任务-->
+	<bean id="myScheduler"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myTriggersA"></ref>
+				<ref bean="myTriggersB"/>
+			</list>
+		</property>
+		<property name="autoStartup" value="true"></property>
+	</bean>
 
-	<!-- cache缓存配置 -->
-<!--	 <cache:annotation-driven cache-manager="cacheManager"/>  
-      
-     <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
-        <property name="configLocation" value="classpath:ehcache-setting.xml" />  
-    </bean>  
-      
-     <bean id="cacheManager1" class="org.springframework.cache.ehcache.EhCacheCacheManager">      
-        <property name="cacheManager"  ref="cacheManagerFactory"/>      
-    </bean>  -->
+	<bean id="myTriggersA"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="myJobDetailA">
+		</property>
+		<property name="cronExpression">
+			<value>0 30 00 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myTriggersB"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="myJobDetaiB">
+		</property>
+		<property name="cronExpression">
+			<value>0 0 0/1 * * ?</value>
+			<!--<value>0 30 23 * * ?</value>-->
+		</property>
+	</bean>
+
+	<bean id="myJobDetailA"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="calculateEnergyQuartz">
+		</property>
+		<property name="targetMethod" value="workOfDay"></property>
+		<property name="concurrent" value="false" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+
+	<bean id="myJobDetaiB"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="calculateEnergyQuartz">
+		</property>
+		<property name="targetMethod" value="workOfHour"></property>
+		<property name="concurrent" value="false" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+
 </beans>

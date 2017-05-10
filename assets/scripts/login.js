@@ -7,10 +7,10 @@ var Login = function () {
 	            errorClass: 'help-block', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            rules: {
-	                username: {
+	                customerName: {
 	                    required: true
 	                },
-	                password: {
+	                customerPwd: {
 	                    required: true
 	                },
 	                remember: {
@@ -19,10 +19,10 @@ var Login = function () {
 	            },
 
 	            messages: {
-	                username: {
+	                customerName: {
 	                    required: "Username is required."
 	                },
-	                password: {
+	                customerPwd: {
 	                    required: "Password is required."
 	                }
 	            },
@@ -172,10 +172,10 @@ var Login = function () {
 	                    required: true
 	                },
 
-	                username: {
+	                customerName: {
 	                    required: true
 	                },
-	                password: {
+	                customerPwd: {
 	                    required: true
 	                },
 	                rpassword: {

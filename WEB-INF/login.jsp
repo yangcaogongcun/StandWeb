@@ -77,7 +77,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 				<label class="control-label visible-ie8 visible-ie9">用户名</label>
 				<div class="input-icon">
-					<i class="fa fa-user"></i> <input name="username" id="username"
+					<i class="fa fa-user"></i> <input name="customerName" id="customerName"
 						size="25" value="java1234" class="form-control placeholder-no-fix"
 						type="text" autocomplete="off" placeholder="用户名" />
 				</div>
@@ -86,11 +86,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				<label class="control-label visible-ie8 visible-ie9">密码</label>
 				<div class="input-icon">
 					<i class="fa fa-lock"></i>
-					<input name="password1" id="password1" size="25" value="123456"
+					<input name="customerPwd1" id="customerPwd1" size="25" value="123456"
 						class="form-control placeholder-no-fix" type="password"
-						autocomplete="off" placeholder="密码" /> <input name="password"
-						id="password" size="25" value=""
-						class="form-control placeholder-no-fix" type="password"
+						autocomplete="off" placeholder="密码" /> <input name="customerPwd"
+						id="customerPwd" size="25" value=""
+						class="form-control placeholder-no-fix" type="customerPwd"
 						autocomplete="off" placeholder="密码" style="display: none;" />
 
 				</div>

@@ -6,10 +6,10 @@ var Login = function() {
             errorClass : 'help-block', // default input error message class
             focusInvalid : false, // do not focus the last invalid input
             rules : {
-                username : {
+                customerName : {
                     required : true
                 },
-                password : {
+                customerPwd : {
                     required : true
                 },
                 remember : {
@@ -18,10 +18,10 @@ var Login = function() {
             },
 
             messages : {
-                loginName : {
+                customerName : {
                     required : "用户名不能为空."
                 },
-                password : {
+                customerPwd : {
                     required : "密码不能为空."
                 }
             },
@@ -52,8 +52,8 @@ var Login = function() {
             },
 
             submitHandler : function(form) {                
-                var passwordInput = $('[name="password"]');
-                var password= $('[name="password1"]');
+                var passwordInput = $('[name="customerPwd"]');
+                var password= $('[name="customerPwd1"]');
                 passwordInput.val(sha256_digest(password.val()));
                 form.submit();
             }
@@ -196,10 +196,10 @@ var Login = function() {
                     required : true
                 },
 
-                username : {
+                customerName : {
                     required : true
                 },
-                password : {
+                customerPwd : {
                     required : true
                 },
                 rpassword : {
